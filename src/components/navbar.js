@@ -5,7 +5,10 @@ import { Router, Link } from "@reach/router";
 import Home from '../pages/home.js';
 import Weather from '../pages/weather.js';
 import Logo from '../images/logo.png';
-
+import Createacmd from '../components/modal/createACMD.js';
+import Signinacmd from '../components/modal/signinACMD.js';
+import Forgotacmd from '../components/modal/forgotACMD.js';
+ 
 function Navbar(){
     return(
         <div className='Navbar'>
@@ -27,13 +30,13 @@ function Navbar(){
                     </li>
                     <li className="nav-item dropdown">
                         <Link className="nav-link dropdown-toggle" to='/' id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                        Account
                         </Link>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link className="dropdown-item" to='/'>Action</Link>
-                        <Link className="dropdown-item" to='/'>Another action</Link>
+                        <Link className="dropdown-item" to='' data-toggle="modal" data-target="#CreateACMD">Create</Link>
+                        <Link className="dropdown-item" to='' data-toggle="modal" data-target="#SigninACMD">Sign in</Link>
                         <div className="dropdown-divider"></div>
-                        <Link className="dropdown-item" to='/'>Something else here</Link>
+                        <Link className="dropdown-item" to='' data-toggle="modal" data-target="#ForgotACMD">Forgot password</Link>
                         </div>
                     </li>
                     <li className="nav-item">
@@ -46,6 +49,9 @@ function Navbar(){
                     </form>
                 </div>
             </nav>
+            <Createacmd/>
+            <Signinacmd/>
+            <Forgotacmd/>
             <Router>
                 <Home exact path='/' />
                 <Weather path='/weather' />

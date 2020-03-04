@@ -1,10 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState, useRef} from 'react';
 import bgrWT from '../images/wt.jpg'
 
 function Weather(){
 
-    const [cityName,setCityName]=useState('Hanoi');
-    const [countryName,setCountryName]=useState('vn');
+    const [cityName,setCityName]=useState('');
+    const [countryName,setCountryName]=useState('');
     const [icon,setIcon]=useState('');
     const [main,setMain]=useState('');
     const [description,setDescription]=useState('');
@@ -33,42 +33,58 @@ function Weather(){
     const [weatherid,setWeatherid]=useState('');
     const [base,setBase]=useState('');
     const [visibilityINF,setvisibilityINF]=useState('none');
-
-
+    const txtCity = useRef(null);
 
     const getWeather=async()=>{
-        const apiKey='c0a8bc57247aaaee9e9e7578f079161f';
-        const apiCall=`https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryName}&appid=${apiKey}`;
-        const data = await fetch(apiCall);
-        const response = await data.json();
-        setIcon(`http://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`)
-        setMain(response.weather[0].main);
-        setDescription(response.weather[0].description);
-        setWeatherid(response.weather[0].id);
-        setTemp(response.main.temp);
-        setTemp_max(response.main.temp_max);
-        setTemp_min(response.main.temp_min);
-        setFeels_like(response.main.feels_like);
-        setPressure(response.main.pressure);
-        setHumidity(response.main.humidity);
-        setVisibility(response.visibility);
-        setWinddeg(response.wind.deg);
-        setWindspeed(response.wind.speed);
-        setCloudall(response.clouds.all);
-        setDt(response.dt);
-        setSyscountry(response.sys.country);
-        setSysid(response.sys.id);
-        setSyssunrise(response.sys.sunrise);
-        setSyssunset(response.sys.sunset);
-        setSystype(response.sys.tyoe);
-        setTimezone(response.timezone);
-        setId(response.id);
-        setName(response.name);
-        setCod(response.cod);
-        setBase(response.base);
-        setCoordlat(response.coord.lat);
-        setCoordlon(response.coord.lon);
-        setvisibilityINF();
+        if(!cityName){
+            alert("Please enter City Name (don't need Country Name is Accept) ");
+        }else{
+            console.clear();
+            const apiKey='c0a8bc57247aaaee9e9e7578f079161f';
+            const apiCall=`https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryName}&appid=${apiKey}`;
+            try{
+            const data = await fetch(apiCall);
+            const response = await data.json();
+            setIcon(`https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`)
+            setMain(response.weather[0].main);
+            setDescription(response.weather[0].description);
+            setWeatherid(response.weather[0].id);
+            setTemp(response.main.temp);
+            setTemp_max(response.main.temp_max);
+            setTemp_min(response.main.temp_min);
+            setFeels_like(response.main.feels_like);
+            setPressure(response.main.pressure);
+            setHumidity(response.main.humidity);
+            setVisibility(response.visibility);
+            setWinddeg(response.wind.deg);
+            setWindspeed(response.wind.speed);
+            setCloudall(response.clouds.all);
+            setDt(response.dt);
+            setSyscountry(response.sys.country);
+            setSysid(response.sys.id);
+            setSyssunrise(response.sys.sunrise);
+            setSyssunset(response.sys.sunset);
+            setSystype(response.sys.tyoe);
+            setTimezone(response.timezone);
+            setId(response.id);
+            setName(response.name);
+            setCod(response.cod);
+            setBase(response.base);
+            setCoordlat(response.coord.lat);
+            setCoordlon(response.coord.lon);
+            setvisibilityINF();
+            }catch(error){
+                console.clear();
+                alert("City is'nt exist!");
+                txtCity.current.value='';
+                txtCity.current.focus();
+            }
+        }
+    }
+    const handleEnter = (e) =>{
+        if(e.keyCode === 13){
+            getWeather();
+        }
     }
 
     return(
@@ -76,15 +92,15 @@ function Weather(){
             <br/><br/>
             <div className='row'>
                 <div className='col' style={{marginLeft:'10%',marginRight:'10%'}}>
-                <form>
+                <form   onKeyDown={handleEnter}>
                     <div className="form-group">
                         <label htmlFor="Country">Country</label>
-                        <input type="text" className="form-control" id="Country" aria-describedby="countryHelp" placeholder="Enter Country Name" onChange={(e)=>{setCountryName(e.target.value)}}/>
+                        <input type="text" className="form-control" id="Country" aria-describedby="countryHelp" placeholder="Enter Country Name" onChange={(e)=>{setCountryName(e.target.value)}} autoComplete='off' />
                         <small id="countryHelp" className="form-text text-muted">You can tyoe fullName or shortName of Country</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="City">City</label>
-                        <input type="City" className="form-control" id="City" aria-describedby='cityHelp' placeholder="City Name" onChange={(e)=>{setCityName(e.target.value)}}/>
+                        <input type="City" className="form-control" id="City" aria-describedby='cityHelp' placeholder="City Name" onChange={(e)=>{setCityName(e.target.value)}} autoComplete='off' ref={txtCity}/>
                         <small id="cityHelp" className="form-text text-muted">You can tyoe fullName or shortName of City</small>
                     </div>
                     <button type="button" className="btn btn-outline-primary" onClick={getWeather}>Get Weather</button>
