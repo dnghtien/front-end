@@ -1,6 +1,36 @@
-import React from 'react';
+import React,{useState} from 'react';
 
-function createACMD(){
+function CreateACMD(){
+
+    const [email,setEmail]=useState('');
+    const [visible,setVisible]=useState('none');
+    const [disbtn,setDisbtn]=useState(true);
+    const [pass,setPass]=useState('');
+    const [repass,setRepass]=useState('');
+    const [visiblepss,setVisiblepss]=useState('none');
+
+    const checkEmail = (e)=>{
+        let regexEmail=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(regexEmail.test(email)){
+            setVisible('none');
+        }else{
+            setVisible();
+        }
+    }
+
+    const checkPass = ()=>{
+        if(pass.toString===repass.toString && pass.length-1===repass.length && pass.length>=8 && repass.length>=8){
+            setVisiblepss('none');
+            if(visible==='none'){
+                setDisbtn(false);
+            }else{
+                setDisbtn(true);
+            }
+        }else{
+            setVisiblepss();
+        }
+    }
+
     return(
         <div className='createACMD'>
             <div className="modal fade" id="CreateACMD" tabIndex="-1" role="dialog" aria-labelledby="createACMDLabel" aria-hidden="true">
@@ -15,20 +45,22 @@ function createACMD(){
                     <div className="modal-body">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="userIP">User Name</label>
-                            <input type="txt" className="form-control" id="userIP" placeholder="User Name"/>
+                            <label htmlFor="userIPCR">User Name</label>
+                            <input  autoComplete='off' type="text" className="form-control" id="userIPCR" placeholder="User Name"/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="EmailIP">Email address</label>
-                            <input type="email" className="form-control" id="EmailIP" placeholder="name@.com"/>
+                            <label htmlFor="EmailIPCR">Email address</label>
+                            <input  autoComplete='off' type="email" className="form-control" id="EmailIPCR" placeholder="name@.com" onChange={e=>{setEmail(e.target.value);checkEmail()}} />
+                            <p id="emailWrong" className="form-text" style={{color:'#fc1100',display:visible}}>Email not type 'Your Name'@example.com</p>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="passwordIP">Password</label>
-                            <input type="email" className="form-control" id="passwordIP" placeholder="Password"/>
+                            <label htmlFor="passwordIPCR">Password</label>
+                            <input  autoComplete='off' type="email" className="form-control" id="passwordIPCR" placeholder="Password >= 8  character" onChange={e=>{setPass(e.target.value)}}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="repasswordIP">Repassword</label>
-                            <input type="email" className="form-control" id="repasswordIP" placeholder="Repassword"/>
+                            <label htmlFor="repasswordIPCR">Repassword</label>
+                            <input  autoComplete='off' type="email" className="form-control" id="repasswordIPCR" placeholder="Repassword" onChange={e=>{setRepass(e.target.value);checkPass()}}/>
+                            <p id="repassWrong" className="form-text" style={{color:'#fc1100',display:visiblepss}}>Password and repassword not match</p>
                         </div>
                         <div className="form-group">
                             <label htmlFor="FormControlSelect1"> select</label>
@@ -58,7 +90,7 @@ function createACMD(){
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-outline-success">Create</button>
+                        <button type="button" className="btn btn-outline-success" disabled={disbtn} >Create</button>
                     </div>
                     </div>
                 </div>
@@ -67,4 +99,4 @@ function createACMD(){
     );
 }
 
-export default createACMD;
+export default CreateACMD;

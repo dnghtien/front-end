@@ -1,5 +1,6 @@
 import React,{useState, useRef} from 'react';
-import bgrWT from '../images/wt.jpg'
+import bgrWT from '../images/wt.jpg';
+import axios from 'axios';
 
 function Weather(){
 
@@ -39,12 +40,12 @@ function Weather(){
         if(!cityName){
             alert("Please enter City Name (don't need Country Name is Accept) ");
         }else{
-            console.clear();
             const apiKey='c0a8bc57247aaaee9e9e7578f079161f';
             const apiCall=`https://api.openweathermap.org/data/2.5/weather?q=${cityName},${countryName}&appid=${apiKey}`;
             try{
-            const data = await fetch(apiCall);
-            const response = await data.json();
+            const response = (await axios.get(apiCall)).data;
+            // const data = await fetch(apiCall);
+            // const response = await data.json();
             setIcon(`https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`)
             setMain(response.weather[0].main);
             setDescription(response.weather[0].description);
@@ -74,7 +75,6 @@ function Weather(){
             setCoordlon(response.coord.lon);
             setvisibilityINF();
             }catch(error){
-                console.clear();
                 alert("City is'nt exist!");
                 txtCity.current.value='';
                 txtCity.current.focus();
@@ -132,7 +132,6 @@ function Weather(){
                     <h4 style={{display:visibilityINF}}>cloudsall:{cloudsall}</h4>
                     <h4 style={{display:visibilityINF}}>systype:{systype}</h4>
                     <h4 style={{display:visibilityINF}}>sysid:{sysid}</h4>
-
                 </div>
             </div>
             <br/>
