@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import Axios from 'axios';
 
 function CreateACMD(){
 
@@ -8,6 +9,10 @@ function CreateACMD(){
     const [pass,setPass]=useState('');
     const [repass,setRepass]=useState('');
     const [visiblepss,setVisiblepss]=useState('none');
+    const [user,setUser]=useState('');
+    const [select,setSelect]=useState('');
+    const [mltselect,setMltelect]=useState('');
+    const [area,setArea]=useState('');
 
     const checkEmail = (e)=>{
         let regexEmail=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -31,6 +36,17 @@ function CreateACMD(){
         }
     }
 
+    const CreateAC = () =>{
+        Axios.post('https://calm-beyond-75097.herokuapp.com/add-account',{
+            user,
+            pass,
+            email,
+            select,
+            mltselect,
+            area
+        }).then(console.log('OK'))
+    };
+
     return(
         <div className='createACMD'>
             <div className="modal fade" id="CreateACMD" tabIndex="-1" role="dialog" aria-labelledby="createACMDLabel" aria-hidden="true">
@@ -46,7 +62,7 @@ function CreateACMD(){
                     <form>
                         <div className="form-group">
                             <label htmlFor="userIPCR">User Name</label>
-                            <input  autoComplete='off' type="text" className="form-control" id="userIPCR" placeholder="User Name"/>
+                            <input  autoComplete='off' type="text" className="form-control" id="userIPCR" placeholder="User Name" onChange={event=>setUser(event.target.value)}/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="EmailIPCR">Email address</label>
@@ -64,7 +80,7 @@ function CreateACMD(){
                         </div>
                         <div className="form-group">
                             <label htmlFor="FormControlSelect1"> select</label>
-                            <select className="form-control" id="FormControlSelect1">
+                            <select className="form-control" id="FormControlSelect1" onChange={event=>setSelect(event.target.value)}>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -74,7 +90,7 @@ function CreateACMD(){
                         </div>
                         <div className="form-group">
                             <label htmlFor="FormControlSelect2"> multiple select</label>
-                            <select multiple className="form-control" id="FormControlSelect2">
+                            <select multiple className="form-control" id="FormControlSelect2" onChange={event=>setMltelect(event.target.value)}>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -84,13 +100,13 @@ function CreateACMD(){
                         </div>
                         <div className="form-group">
                             <label htmlFor="FormControlTextarea1"> textarea</label>
-                            <textarea className="form-control" id="FormControlTextarea1" rows="3"></textarea>
+                            <textarea className="form-control" id="FormControlTextarea1" rows="3" onChange={event=>setArea(event.target.value)}></textarea>
                         </div>
                     </form>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-outline-success" disabled={disbtn} >Create</button>
+                        <button type="button" className="btn btn-outline-success" disabled={disbtn} onClick={CreateAC}>Create</button>
                     </div>
                     </div>
                 </div>
