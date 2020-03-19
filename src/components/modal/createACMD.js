@@ -6,8 +6,8 @@ function CreateACMD(){
     const [email,setEmail]=useState('');
     const [visible,setVisible]=useState('none');
     const [disbtn,setDisbtn]=useState(true);
-    const [pass,setPass]=useState('');
-    const [repass,setRepass]=useState('');
+    const [password,setpassword]=useState('');
+    const [repassword,setRepassword]=useState('');
     const [visiblepss,setVisiblepss]=useState('none');
     const [user,setUser]=useState('');
     const [select,setSelect]=useState('');
@@ -23,8 +23,8 @@ function CreateACMD(){
         }
     }
 
-    const checkPass = ()=>{
-        if(pass.toString===repass.toString && pass.length-1===repass.length && pass.length>=8 && repass.length>=8){
+    const checkpassword = ()=>{
+        if(password.toString===repassword.toString && password.length-1===repassword.length && password.length>=8 && repassword.length>=8){
             setVisiblepss('none');
             if(visible==='none'){
                 setDisbtn(false);
@@ -38,7 +38,7 @@ function CreateACMD(){
 
     const ACinf={
         user,
-        pass,
+        password,
         email,
         select,
         mltselect,
@@ -46,7 +46,8 @@ function CreateACMD(){
     }
 
     const CreateAC = () =>{
-        Axios.post('https://calm-beyond-75097.herokuapp.com/add-account',ACinf).then(console.log('OK'))
+        // Axios.post('https://calm-beyond-75097.herokuapp.com/add-account',ACinf).then(console.log('OK'))
+        Axios.post('http://localhost:3000/add-account',ACinf).then(console.log('OK'))
     };
 
     return(
@@ -72,13 +73,13 @@ function CreateACMD(){
                             <p id="emailWrong" className="form-text" style={{color:'#fc1100',display:visible}}>Email not type 'Your Name'@example.com</p>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="passwordIPCR">Password</label>
-                            <input  autoComplete='off' type="email" className="form-control" id="passwordIPCR" placeholder="Password >= 8  character" onChange={e=>{setPass(e.target.value)}}/>
+                            <label htmlFor="passwordwordIPCR">passwordword</label>
+                            <input  autoComplete='off' type="email" className="form-control" id="passwordwordIPCR" placeholder="passwordword >= 8  character" onChange={e=>{setpassword(e.target.value)}}/>
                         </div>
                         <div className="form-group">
-                            <label htmlFor="repasswordIPCR">Repassword</label>
-                            <input  autoComplete='off' type="email" className="form-control" id="repasswordIPCR" placeholder="Repassword" onChange={e=>{setRepass(e.target.value);checkPass()}}/>
-                            <p id="repassWrong" className="form-text" style={{color:'#fc1100',display:visiblepss}}>Password and repassword not match</p>
+                            <label htmlFor="repasswordwordIPCR">Repasswordword</label>
+                            <input  autoComplete='off' type="email" className="form-control" id="repasswordwordIPCR" placeholder="Repasswordword" onChange={e=>{setRepassword(e.target.value);checkpassword()}}/>
+                            <p id="repasswordWrong" className="form-text" style={{color:'#fc1100',display:visiblepss}}>passwordword and repasswordword not match</p>
                         </div>
                         <div className="form-group">
                             <label htmlFor="FormControlSelect1"> select</label>
