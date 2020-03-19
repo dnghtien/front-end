@@ -36,15 +36,17 @@ function CreateACMD(){
         }
     }
 
+    const ACinf={
+        user,
+        pass,
+        email,
+        select,
+        mltselect,
+        area
+    }
+
     const CreateAC = () =>{
-        Axios.post('https://calm-beyond-75097.herokuapp.com/add-account',{
-            user,
-            pass,
-            email,
-            select,
-            mltselect,
-            area
-        }).then(console.log('OK'))
+        Axios.post('https://calm-beyond-75097.herokuapp.com/add-account',ACinf).then(console.log('OK'))
     };
 
     return(
