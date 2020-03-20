@@ -73,11 +73,11 @@ function CreateACMD(){
                         </div>
                         <div className="form-group">
                             <label htmlFor="passwordwordIPCR">passwordword</label>
-                            <input  autoComplete='off' type="email" className="form-control" id="passwordwordIPCR" placeholder="passwordword >= 8  character" onChange={e=>{setpassword(e.target.value)}}/>
+                            <input  autoComplete='off' type="password" className="form-control" id="passwordwordIPCR" placeholder="passwordword >= 8  character" onChange={e=>{setpassword(e.target.value)}}/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="repasswordwordIPCR">Repasswordword</label>
-                            <input  autoComplete='off' type="email" className="form-control" id="repasswordwordIPCR" placeholder="Repasswordword" onChange={e=>{setRepassword(e.target.value);checkpassword()}}/>
+                            <input  autoComplete='off' type="password" className="form-control" id="repasswordwordIPCR" placeholder="Repasswordword" onChange={e=>{setRepassword(e.target.value);checkpassword()}}/>
                             <p id="repasswordWrong" className="form-text" style={{color:'#fc1100',display:visiblepss}}>passwordword and repasswordword not match</p>
                         </div>
                         <div className="form-group">

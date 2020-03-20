@@ -8,6 +8,7 @@ import Logo from '../images/logo.png';
 import Createacmd from '../components/modal/createACMD.js';
 import Signinacmd from '../components/modal/signinACMD.js';
 import Forgotacmd from '../components/modal/forgotACMD.js';
+import NetworkSP from '../components/modal/networkSpeed.js';
  
 function Navbar(){
     return(
@@ -37,6 +38,7 @@ function Navbar(){
                         <Link className="dropdown-item" to='' data-toggle="modal" data-target="#SigninACMD">Sign in</Link>
                         <div className="dropdown-divider"></div>
                         <Link className="dropdown-item" to='' data-toggle="modal" data-target="#ForgotACMD">Forgot password</Link>
+                        <Link className='dropdown-item' to='' data-toggle='modal' data-target='#networkSP'>Network speed</Link>
                         </div>
                     </li>
                     <li className="nav-item">
@@ -52,6 +54,7 @@ function Navbar(){
             <Createacmd/>
             <Signinacmd/>
             <Forgotacmd/>
+            <NetworkSP/>
             <Router>
                 <Home exact path='/' />
                 <Weather path='/weather' />
